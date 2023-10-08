@@ -5,16 +5,19 @@ import Row from '../components/row';
 import Loader from '../components/loader';
 import NewPostButton from '../components/newPostButton';
 import NewPost from '../components/newPost';
-import {getFeed} from '../services/apiServices';
+import {getFeed, createPost} from '../services/apiService';
 
 function Feed() {
   const [data, setData] = useState();
+  const [showLoader, setShowLoader] = useState(true);
   const [showNewPost, setShowNewPost] = useState(false);
 
   const fetchData = async () => {
     try {
+      setShowLoader(true);
       const data = await getFeed();
       setData(data);
+      setShowLoader(false);
     } catch (err) {
       Alert.alert('Feed is currently unavailable, try again later.');
     }
@@ -29,19 +32,21 @@ function Feed() {
   };
 
   const handleSave = async emojis => {
-    const name = await AsyncStorage.getItem('name');
-    const newRecord = {
-      id: Math.random(),
-      title: emojis,
-      created: new Date(),
-      name,
-    };
-    const newData = [newRecord, ...data];
-    setData(newData);
+    setShowLoader(true);
+    if (emojis && emojis.length > 0) {
+      try {
+        const name = await AsyncStorage.getItem('name');
+        await createPost(emojis, name);
+        await fetchData();
+      } catch (err) {
+        Alert.alert('Unable to post to Feed currently, try again later.');
+      }
+    }
+    setShowLoader(false);
     setShowNewPost(false);
   };
 
-  if (!data) {
+  if (showLoader) {
     return <Loader />;
   }
 

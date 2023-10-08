@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, ScrollView, TextInput} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Button from '../components/button';
 
-function About() {
-  const [count, setCount] = useState(0);
+function Settings() {
   const [name, setName] = useState('');
 
   useEffect(() => {
@@ -17,6 +15,10 @@ function About() {
     }
   }, [name]);
 
+  function onChangeText(text) {
+    setName(text);
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -26,14 +28,8 @@ function About() {
             style={styles.input}
             placeholder="Your name"
             value={name}
-            onChangeText={text => setName(text)}
+            onChangeText={onChangeText}
           />
-        </View>
-        <View style={styles.content}>
-          <Text style={styles.title}>Current count {count}</Text>
-          <View style={styles.buttonWrapper}>
-            <Button text="Press me" onPress={() => setCount(count + 1)} />
-          </View>
         </View>
       </ScrollView>
     </View>
@@ -67,4 +63,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default About;
+export default Settings;

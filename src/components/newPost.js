@@ -13,7 +13,7 @@ function NewPost(props) {
   const {onCancel, onSave} = props;
   const [emojis, setEmojis] = useState('');
 
-  const updateWithValidEmojis = text => {
+  function updateWithValidEmojis(text) {
     const emojiRegex = /[\p{Emoji}]/gu;
     const emojisOnly = text.match(emojiRegex);
     if (emojisOnly) {
@@ -21,9 +21,9 @@ function NewPost(props) {
     } else {
       setEmojis('');
     }
-  };
+  }
 
-  const renderEmojiShortcut = emoji => {
+  const renderEmojiButton = emoji => {
     return (
       <Pressable onPress={() => updateWithValidEmojis(emojis + emoji)}>
         <Text style={styles.emoji}>{emoji}</Text>
@@ -52,11 +52,11 @@ function NewPost(props) {
         <View style={styles.popularContainer}>
           <Text>Popular</Text>
           <View style={styles.emojisContainer}>
-            {renderEmojiShortcut('😁')}
-            {renderEmojiShortcut('😎')}
-            {renderEmojiShortcut('❤️')}
-            {renderEmojiShortcut('😅')}
-            {renderEmojiShortcut('🤯')}
+            {renderEmojiButton('😁')}
+            {renderEmojiButton('😎')}
+            {renderEmojiButton('❤️')}
+            {renderEmojiButton('😅')}
+            {renderEmojiButton('🤯')}
           </View>
         </View>
       </View>

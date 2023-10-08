@@ -3,13 +3,16 @@ import {StyleSheet, Text, View} from 'react-native';
 
 function Row(props) {
   const {title, created, name} = props;
+
+  function dateFormatted(date) {
+    return new Date(date).toLocaleDateString();
+  }
+
   return (
     <View style={styles.item}>
       <View style={styles.miniContainer}>
         <Text style={styles.mini}>{name ?? 'Anonymous'}</Text>
-        <Text style={styles.mini}>
-          {new Date(created).toLocaleDateString()}
-        </Text>
+        <Text style={styles.mini}>{dateFormatted(created)}</Text>
       </View>
       <Text style={styles.title}>{title}</Text>
     </View>

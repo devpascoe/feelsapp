@@ -1,26 +1,12 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import FeedIcon from './components/feedIcon';
-import AboutIcon from './components/aboutIcon';
+import FeedIcon from './components/icons/feedIcon';
+import CountIcon from './components/icons/countIcon';
+import SettingsIcon from './components/icons/settingsIcon';
 import Feed from './screens/Feed';
-import About from './screens/About';
+import Counter from './screens/Counter';
+import Settings from './screens/Settings';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,11 +25,20 @@ function MyTabs() {
         }}
       />
       <Tab.Screen
-        name="About"
-        component={About}
+        name="Counter"
+        component={Counter}
         options={{
           tabBarIcon: ({color, size}) => (
-            <AboutIcon color={color} size={size} />
+            <CountIcon color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <SettingsIcon color={color} size={size} />
           ),
         }}
       />
